@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Vue.js App by Ryu</title>
+    <link href="./assets/css/main.css" rel="stylesheet">
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+<body>
+<div id="app" v-cloak>
+    <!-- 여기 #app 내부에 템플릿을 출력할 것입니다. -->
+
+    <button v-on:click="handleClick2">Count up2</button>
+    <button v-on:click="show2=!show2">표시/비표시</button>
+    <span ref="tempCount" v-if="show2">0</span>
+    <br>
+    <ul v-bind:class="monsterClass">
+        <li v-for="item in monsterList"
+            v-bind="item"
+            v-bind:key="item.id"
+            v-bind:class="{ strong: item.hp > 300 }">
+            ID.{{ item.id }} {{ item.name }} HP.{{ item.hp }}
+            <span v-if="item.hp > 300">강하다!</span>
+        </li>
+    </ul>
+    <br>
+    이름
+    <input v-model="monsterName">
+    <button v-on:click="doAdd">몬스터 추가하기</button>
+    <br>
+    <ul v-bind:class="monsterClass">
+        <li v-for="(item, idx) in list2"
+            v-bind:key="item.id"
+            v-bind:class="{ strong: item.hp > 300 }">
+            ID/{{ idx }}.{{ item.id }} {{ item.name }} HP.{{ item.hp }}
+            <span v-if="item.hp < 50">빈사 상태!</span>
+            <span v-if="item.hp > 300">강하다!</span>
+            <!-- 버튼은 v-for 내부에 만들기 -->
+            <button v-on:click="doAttack(idx)">공격하기</button>
+            <!-- 삭제 버튼을 v-for 내부에 만들기 -->
+            <button v-on:click="doRemove(idx)">몬스터 제거하기</button>
+        </li>
+    </ul>
+    <br>
+    <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+        <circle cx="100" cy="75" v-bind:r="radius" fill="lightpink" />
+    </svg>
+    <input type="range" min="0" max="100" v-model.number="radius">
+    <input type="range" min="0" max="100" v-model="radius">
+    <br>
+    <button v-on:click="isActive=!isActive">isActive 변경하기</button>
+    <p v-bind:class="{ child: isChild, 'is-active': isActive }" class="item">
+        동적 클래스
+    </p>
+    <p v-bind:style="{ color: textColor, backgroundColor: bgColor }" class="item">
+        동적 스타일
+    </p>
+    <br>
+    <p>{{ count }}번 클릭했습니다.</p>
+    <button v-on:click="increment">카운트 증가</button>
+    <button v-on:click="increment2">화살표 함수 this scope 확인</button>
+    <button v-on:click="increment3">단축 함수 this scope 확인</button>
+    <br>
+    <p>{{list[2]}}</p>
+    <p>{{list[num]}}</p>
+    <br>
+    <p>{{message2.value}}</p>
+    <p>{{message2.value.length}}</p>
+    <br>
+    <button v-on:click="show=!show">toggle</button>
+    <br>
+    <transition>
+        <p v-if="show">보였다 안보였다</p>
+    </transition>
+    <br>
+    <ul>
+        <li v-for="item in list">{{item}}</li>
+    </ul>
+
+    <input v-model="message">
+    <br>
+    <button v-on:click="handleClick">클릭~!</button>
+    <br>
+    <p>{{message}}</p>
+    <br>
+</div>
+
+<!-- Vue.js v2.7.8 -->
+<script src="./assets/js/vue.js"></script>
+
+<!-- Vue.js v2.6.0 -->
+<!-- <script src="./assets/js/vue@2.6.0.js"></script>-->
+
+<!-- Vue.js v2.5.16 -->
+<!--<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>-->
+
+<script src="./assets/js/main.js"></script>
+</body>
+</html>
