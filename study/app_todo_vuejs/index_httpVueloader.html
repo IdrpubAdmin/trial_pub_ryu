@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>httpRouterLoader</title>
+  <link rel="shortcut icon" href="src/assets/favicon.ico" type="image/x-icon">
+  <link rel="icon" href="src/assets/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.12/css/all.css">
+  <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+</head>
+<body>
+<div id="root">
+  <!-- httpVueLoader 사용해서 렌더링 -->
+  <root-component></root-component>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.2/dist/vue.js"></script>
+<script type="text/javascript" src="./src/assets/js/httpVueLoader.js"></script>
+<script>
+  new Vue({
+    components: {
+      'root-component': httpVueLoader('./src/httpApp.vue'),
+    },
+  }).$mount('#root');
+</script>
+</body>
+</html>
