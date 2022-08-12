@@ -7,15 +7,86 @@
     <title>Vue.js App by Ryu</title>
     <link href="./assets/css/main.css" rel="stylesheet">
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
+    
 </head>
 <body>
 <div id="app" v-cloak>
     <!-- 여기 #app 내부에 템플릿을 출력할 것입니다. -->
-
+    <button v-on:click="list5.push(list5.length+1)">추가</button>
+    <ul ref="list5">
+        <li v-for="item in list5">{{ item }}</li>
+    </ul>
+    <hr>
+    <button @click="video1=true">재생</button>
+    <button @click="video1=false">중지</button>
+    <video src="assets/contents/test_mv.mp4" v-video="video1" width="600"></video>
+    <br>
+    <button @click="video2=true">재생</button>
+    <button @click="video2=false">중지</button>
+    <video src="assets/contents/test_mv.mp4" v-video="video2" width="600"></video>
+    <hr>
+    <br>
+    <button @click="video3=true">재생</button>
+    <button @click="video3=false">중지</button>
+    <video src="assets/contents/test_mv.mp4" v-video="video3" width="600"></video>
+    <hr>
+<!--    <input type="text" v-focus>-->
+    <hr>
+    <p>{{ price2 | localeNum }}</p>
+    <p>180도는 {{ 180 | radian }} 라디안입니다 .</p>
+    <p>180도는 {{ 180 | radian | round }} 라디안입니다 .</p>
+    <hr>
+    <select v-model="current">
+        <option v-for="topic in topics" v-bind:value="topic.value">
+            {{ topic.name }}
+        </option>
+    </select>
+    <div v-for="item in list4">{{ item.full_name }}</div>
+    <hr>
+    <input v-model.number="budget">원 이하 필터링하기
+    <input v-model.number="limit"> 개의 결과 출력하기
+    <button v-on:click="order=!order">변경하기</button>
+    <p>{{ matched.length }}개 중에 {{ limited.length }}개를 출력하고 있습니다.</p>
+    <ul>
+        <!-- v-for에 최종 결과라고 할 수 있는 산출 속성 limited 사용하기 -->
+        <li v-for="item in limited" v-bind:key="item.id">
+            {{ item.name }} {{ item.price }}원
+        </li>
+    </ul>
+    <hr>
+    <p>산출 속성</p>
+    <ol>
+        <li>{{ computedData }}</li>
+        <li>{{ computedData }}</li>
+    </ol>
+    <p>메서드</p>
+    <ol>
+        <li>{{ methodsData() }}</li>
+        <li>{{ methodsData() }}</li>
+    </ol>
+    <hr>
+    <input v-model.number="width"> {{ width }}
+    <input v-model.number="halfWidth"> {{ halfWidth }}
+    <hr>
+    <p>X: {{ halfPoint.x }}</p>
+    <p>Y: {{ halfPoint.y }}</p>
+    <hr>
+    <p>{{ width }}의 절반은 {{ halfWidth }}입니다.</p>
+    <hr>
+    <label>
+        <input type="checkbox" v-model="chckval" true-value="yes" false-value="no">
+        {{ chckval }}
+    </label>
+    <hr>
+    <input v-bind:value="message" v-on:input="handleInput">
+    <hr>
+    <button v-on:click="handleClick3($event)">Click Event</button>
+    <hr>
     <button v-on:click="handleClick2">Count up2</button>
     <button v-on:click="show2=!show2">표시/비표시</button>
     <span ref="tempCount" v-if="show2">0</span>
-    <br>
+    <hr>
     <ul v-bind:class="monsterClass">
         <li v-for="item in monsterList"
             v-bind="item"
@@ -25,11 +96,11 @@
             <span v-if="item.hp > 300">강하다!</span>
         </li>
     </ul>
-    <br>
+    <hr>
     이름
     <input v-model="monsterName">
     <button v-on:click="doAdd">몬스터 추가하기</button>
-    <br>
+    <hr>
     <ul v-bind:class="monsterClass">
         <li v-for="(item, idx) in list2"
             v-bind:key="item.id"
@@ -43,13 +114,13 @@
             <button v-on:click="doRemove(idx)">몬스터 제거하기</button>
         </li>
     </ul>
-    <br>
+    <hr>
     <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
         <circle cx="100" cy="75" v-bind:r="radius" fill="lightpink" />
     </svg>
     <input type="range" min="0" max="100" v-model.number="radius">
     <input type="range" min="0" max="100" v-model="radius">
-    <br>
+    <hr>
     <button v-on:click="isActive=!isActive">isActive 변경하기</button>
     <p v-bind:class="{ child: isChild, 'is-active': isActive }" class="item">
         동적 클래스
@@ -57,34 +128,34 @@
     <p v-bind:style="{ color: textColor, backgroundColor: bgColor }" class="item">
         동적 스타일
     </p>
-    <br>
+    <hr>
     <p>{{ count }}번 클릭했습니다.</p>
     <button v-on:click="increment">카운트 증가</button>
     <button v-on:click="increment2">화살표 함수 this scope 확인</button>
     <button v-on:click="increment3">단축 함수 this scope 확인</button>
-    <br>
+    <hr>
     <p>{{list[2]}}</p>
     <p>{{list[num]}}</p>
-    <br>
+    <hr>
     <p>{{message2.value}}</p>
     <p>{{message2.value.length}}</p>
-    <br>
+    <hr>
     <button v-on:click="show=!show">toggle</button>
-    <br>
+    <hr>
     <transition>
         <p v-if="show">보였다 안보였다</p>
     </transition>
-    <br>
+    <hr>
     <ul>
         <li v-for="item in list">{{item}}</li>
     </ul>
 
     <input v-model="message">
-    <br>
+    <hr>
     <button v-on:click="handleClick">클릭~!</button>
-    <br>
+    <hr>
     <p>{{message}}</p>
-    <br>
+    <hr>
 </div>
 
 <!-- Vue.js v2.7.8 -->

@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Vue.js App by Ryu</title>
+    <link href="./assets/css/main.css" rel="stylesheet">
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
+    <style>
+        /* 1초 동안 투명도를 변화 */
+        .v-enter-active, .v-leave-active {
+            transition: opacity 1s;
+        }
+        /* 더 이상 보이게 되지 않았을 때의 투명도 */
+        .v-enter, .v-leave-to {
+            opacity: 0;
+        }
+
+        .v-enter-active,
+        .v-leave-active {
+            transition: opacity 1s, transform 1s;
+            position: absolute;
+        }
+        /* 출력할 때는 왼쪽에서 오른쪽으로 */
+        .v-enter {
+            opacity: 0;
+            transform: translateX(-10px);
+        }
+        /* 사라질 때는 아래로 */
+        .v-leave-to {
+            opacity: 0;
+            transform: translateY(10px);
+        }
+
+        /* 1초 동안 요소 이동하기 */
+        .v-move {
+            transition: transform 1s;
+        }
+
+        /* 박스 스타일 정의 */
+        .list {
+            width: 240px;
+            padding: 0;
+        }
+        .item {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            margin: 4px;
+            width: 40px;
+            height: 40px;
+            background: #f5f5f5;
+        }
+        /* 트랜지션 전용 스타일 */
+        .v-enter-active, .v-leave-active, .v-move {
+            transition: all 1s;
+        }
+        .v-leave-active {
+            position: absolute;
+        }
+        .v-enter, .v-leave-to {
+            opacity: 0;
+            background: #f9a3b1;
+            transform: translateY(-30px);
+        }
+    </style>
+</head>
+<body>
+<div id="app" v-cloak>
+    <!-- 여기 #app 내부에 템플릿을 출력할 것입니다. -->
+    <transition-group tag="ul" class="list" v-on:before-leave="beforeLeave2">
+        <li v-for="(item, index) in list3"
+            v-bind:key="item"
+            class="item"
+            v-on:click="doRemove(index)">{{ item }}</li>
+    </transition-group>
+    <hr>
+    <p><button v-on:click="show3=!show3">변경하기</button></p>
+    <transition
+            v-on:before-enter="beforeEnter"
+            v-on:enter="enter"
+            v-on:after-enter="afterEnter"
+            v-on:enter-cancelled="enterCancelled"
+            v-on:before-leave="beforeLeave"
+            v-on:leave="leave"
+            v-on:after-leave="afterLeave"
+            v-on:leave-cancelled="leaveCancelled">
+        <div v-if="show3">example</div>
+    </transition>
+    <hr>
+    <button v-on:click="toggle=!toggle">변경하기</button>
+    <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+        <!-- SVG 요소에 트랜지션 사용하기 -->
+        <transition>
+            <my-circle v-bind:fill="fill" v-bind:key="fill"></my-circle>
+        </transition>
+    </svg>
+    <hr>
+    <p>
+        <button v-on:click="doShuffle">셔플</button>
+        <button v-on:click="doAdd">추가</button>
+    </p>
+    <transition-group tag="ul" class="list">
+        <li v-for="(item, index) in list3"
+            v-bind:key="item"
+            class="item"
+            v-on:click="doRemove(index)">{{ item }}</li>
+    </transition-group>
+    <hr>
+    <p><button v-on:click="order=!order">변경하기</button></p>
+    <!-- transition-group으로 사용할 태그는 속성으로 지정함 -->
+    <transition-group tag="ul" class="list">
+        <li v-for="item in sortedList" v-bind:key="item.id">
+            {{ item.name }} {{ item.price }}원
+        </li>
+    </transition-group>
+    <hr>
+    <p><button v-on:click="count++">변경하기</button></p>
+    <transition>
+        <div v-bind:key="count">{{ count }}</div>
+    </transition>
+    <hr>
+    <p><button v-on:click="show2=!show2">변경하기</button></p>
+    <transition>
+        <div v-if="show2" key="a">TRUE</div>
+        <div v-else key="b">FALSE</div>
+    </transition>
+    <hr>
+    <p><button v-on:click="show=!show">변경하기</button></p>
+    <transition>
+        <div v-show="show">
+            트랜지션시킬 요소
+        </div>
+    </transition>
+    <hr>
+    
+    <button v-on:click="current2='comp-board'">메시지 목록</button>
+    <button v-on:click="current2='comp-form'">입력 양식</button>
+    <keep-alive>
+        <div v-bind:is="current2"></div>
+    </keep-alive>
+    <hr>
+    <my-component-d></my-component-d>
+    <hr>
+    <button v-on:click="current^=1">컴포넌트 변경하기</button>
+    <div v-bind:is="component"></div>
+    <hr>
+    <functional-component></functional-component>
+    <hr>
+    <my-component v-bind:name.sync="name" v-bind:hp="hp"></my-component>
+    <hr>
+    <my-calendar v-bind:value="date" v-on:input="date = $event"></my-calendar>
+    <my-calendar2 v-bind:current="date2" v-on:change="date2 = $event"></my-calendar2>
+    <hr>
+    <comp-child4>
+        <header slot="header" class="headerStyle" slot-scope="props">
+            Hello Vue.js! <br> {{ props.txt }}
+        </header>
+        Vue.js는 JavaScript 프레임워크입니다.
+    </comp-child4>
+    <hr>
+    <button @click="handleClick">처리하기</button>
+    <comp-child3 ref="child"></comp-child3>
+    <hr>
+    <component-b></component-b>
+    <hr>
+    <ul>
+        <comp-child2 v-for="(item, idx) in list"
+                    v-bind:key="item.id"
+                    v-bind:name="item.name"
+                    v-bind:hp="item.hp"
+                    v-bind:idx="idx"
+                     v-on:do-attack="rootDoAttack"></comp-child2>
+    </ul>
+    <hr>
+    <comp-child :val="valueA"></comp-child>
+    <comp-child :val="valueB"></comp-child>
+    <hr>
+    <comp-child val="자식A"></comp-child>
+    <comp-child val="자식B"></comp-child>
+</div>
+
+<!-- Vue.js v2.7.8 -->
+<script src="./assets/js/vue.js"></script>
+
+<!-- Vue.js v2.6.0 -->
+<!-- <script src="./assets/js/vue@2.6.0.js"></script>-->
+
+<!-- Vue.js v2.5.16 -->
+<!--<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>-->
+
+<script type="text/javascript" src="./assets/js/httpVueLoader.js"></script>
+
+<script src="./assets/js/ui.js"></script>
+</body>
+</html>
