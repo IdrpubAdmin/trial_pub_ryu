@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Vue.js App by Ryu</title>
+    <link href="./assets/css/main.css" rel="stylesheet">
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
+    <script>
+        var _pageMixins = [];
+    </script>
+</head>
+<body>
+<div id="app" v-cloak>
+    <!-- 여기 #app 내부에 템플릿을 출력할 것입니다. -->
+    vm computed count: {{ cnt }}<br>
+    vm computed countAlias: {{ countAlias }} <br>
+    vm computed another: {{ another }}<br>
+    vm computed countPlusLocalState: {{ countPlusLocalState}}<br>
+</div>
+
+<!-- Vue.js v2.7.8 -->
+<script src="./assets/js/vue.js"></script>
+
+<!-- Vuex.js v3.6.2 -->
+<script src="./assets/js/vuex.js"></script>
+
+<script type="text/javascript" src="./assets/js/httpVueLoader.js"></script>
+
+<script src="./assets/js/store.js"></script>
+<script src="./assets/js/exVuex.js"></script>
+</body>
+</html>
