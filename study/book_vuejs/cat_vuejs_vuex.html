@@ -15,10 +15,31 @@
 <body>
 <div id="app" v-cloak>
     <!-- 여기 #app 내부에 템플릿을 출력할 것입니다. -->
+    모듈을 사용해서 커져 버린 스토어 분할하기 <br>
+    {{ moduleAcount }}<br>
+    {{ moduleBcount }}<br>
+    <hr>
+    컴포넌트에서 스토어 사용하기 <br>
+    {{ message }}
+    
+    <h3>바인드와 이벤트를 사용한 경우</h3>
+    <input type="text" :value="message" @input="doUpdate">
+    <h3>v-model를 사용한 경우</h3>
+    <input v-model="message2">
+    
+    <hr>
     vm computed count: {{ cnt }}<br>
     vm computed countAlias: {{ countAlias }} <br>
     vm computed another: {{ another }}<br>
     vm computed countPlusLocalState: {{ countPlusLocalState}}<br>
+    
+    {{ $store.state.message }}<br>
+    
+    gettersCount : {{ gettersCount }}<br>
+    gettersMax : {{ gettersMax }}<br>
+    gettersItem : {{ gettersItem }}<br>
+    gettersName : {{ gettersName }}<br>
+    callMutationType : {{ $store.state.mutationTypeVal }} <button @click="callMutationType">callMutationType</button> <button @click="callActionType">callActionType</button> <br>
 </div>
 
 <!-- Vue.js v2.7.8 -->
@@ -29,7 +50,35 @@
 
 <script type="text/javascript" src="./assets/js/httpVueLoader.js"></script>
 
+<script type="text/javascript">
+    _pageMixins.push({
+        created(){
+            this.$store.commit('increment2')
+            console.log("mixins store.count : " + this.$store.state.count )
+            console.log("data localCount : " + this.localCount )
+        },
+        computed: {
+            message(){
+                return this.$store.getters.message
+            },
+            message2:{
+                get() { return this.$store.getters.message },
+                set(value) { this.$store.dispatch('doUpdate', value) }
+            },
+            moduleAcount(){
+                return this.$store.state.moduleA.count
+            },
+            moduleBcount(){
+                this.$store.commit('moduleB/updateModule')
+                return this.$store.state.moduleB.count
+            },
+        }
+    });
+    
+</script>
+
 <script src="./assets/js/store.js"></script>
 <script src="./assets/js/exVuex.js"></script>
+
 </body>
 </html>

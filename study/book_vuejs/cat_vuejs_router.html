@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Vue.js App by Ryu</title>
+    <link href="./assets/css/main.css" rel="stylesheet">
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
+    <style>
+        .router-link-active {
+            background:#e25193;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <!-- 여기 #app 내부에 템플릿을 출력할 것입니다. -->
+    <nav>
+        <router-link to="/" exact>Home</router-link>
+        <router-link to="/product">상품 정보</router-link>
+    </nav>
+    <!-- 여기에 경로와 일치하는 뷰가 출력됩니다. -->
+    <router-view />
+</div>
+
+<!-- Vue.js v2.7.8 -->
+<script src="./assets/js/vue.js"></script>
+
+<!-- Vue.js v2.6.0 -->
+<!-- <script src="./assets/js/vue@2.6.0.js"></script>-->
+
+<!-- Vue.js v2.5.16 -->
+<!--<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>-->
+
+<!-- Vuex.js v3.6.2 -->
+<script src="./assets/js/vuex.js"></script>
+
+<!-- Vue-router.js v2.0.0 -->
+<script type="text/javascript" src="./assets/js/vue-router.js"></script>
+
+<!-- httpVueLoader.js -->
+<script type="text/javascript" src="./assets/js/httpVueLoader.js"></script>
+
+<script src="assets/js/vuex-view.js"></script>
+<script src="assets/js/vuex-product.js"></script>
+<script src="./assets/js/router.js"></script>
+
+</body>
+</html>
