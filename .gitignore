@@ -8,3 +8,4 @@ package-lock.json
 .sass-cache
 *.scssc
 !.vscode/settings.json
+trial_pub_ryu.code-workspace
