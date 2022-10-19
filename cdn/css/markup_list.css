@@ -21,6 +21,7 @@ p.gnbcheck { padding-right: 50px; padding-left: 50px; font-weight: 700; font-siz
 .depth1 li a { padding-left: 10px; color: #333; text-decoration: none; }
 .depth1 li a:hover { color: #000; }
 .depth1 li a::before { content: "◾ "; vertical-align: top; }
+.depth1 li.modify a { color: #de4343; }
 
 /* markup_list  e =========================================== */
 

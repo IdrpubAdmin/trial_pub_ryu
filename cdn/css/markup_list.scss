@@ -59,6 +59,11 @@ p.gnbcheck {
         vertical-align: top;
       }
     }
+    &.modify {
+      a {
+        color:#de4343;
+      }
+    }
   }
   > li {
     &::before {
