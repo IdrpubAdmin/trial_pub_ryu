@@ -1,8 +1,0 @@
-@charset "utf-8";
-
-body a {
-    display: grid;
-    font-size: 2rem;
-    color: red;
-    overflow:hidden auto;
-}

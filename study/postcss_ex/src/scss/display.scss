@@ -1,0 +1,17 @@
+@charset "utf-8";
+
+@import 'vars';
+
+body {
+    background:$background;
+    background:url('../images/common/thumb_13.png');
+    div {width:100%;}
+    a {
+        display: grid;
+        font-size: 2rem;
+        color: red;
+        overflow: hidden auto;
+    }
+
+}
+

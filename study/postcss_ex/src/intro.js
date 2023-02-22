@@ -1,4 +1,4 @@
-import css from "./css/display.css"
+import css from "./scss/display.scss"
 import commonJs from './js/common'
 
-console.log('intro page')
+console.log('intro page js')
