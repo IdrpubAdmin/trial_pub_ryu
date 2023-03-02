@@ -20,11 +20,6 @@
 
 ---
 
-> trial_pub_somia : [gitHub](https://github.com/IdrpubAdmin/trial_pub_somia) /
-> [pages](https://idrpubadmin.github.io//trial_pub_somia/) /
-> [local](http://localhost:8088/trial_pub_somia/)
-
----
 > trial_pub_sim : [gitHub](https://github.com/IdrpubAdmin/trial_pub_sim) /
 > [pages](https://idrpubadmin.github.io//trial_pub_sim/) /
 > [local](http://localhost:8088/trial_pub_sim/)
