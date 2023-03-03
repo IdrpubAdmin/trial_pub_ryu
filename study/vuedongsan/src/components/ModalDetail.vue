@@ -1,22 +1,26 @@
 <template>
-    <div class="modal-wrap" v-if="dataJs.isModalOpen">
-        <div class="modal-bx">
-            <button class="close-btn" @click="modalClose">Ⅹ</button>
-            <h4 class="modal-tit">상세보기</h4>
-            <div class="modal-con">
-                <div class="thumnail">
-                    <img :src="require('../assets/images/' + dataJs.products[dataJs.modalProdNum].imgUrl)" alt="">
+    <transition name="fade">
+        <div class="modal-wrap" v-if="dataJs.isModalOpen">
+            <div class="modal-bx">
+                <button class="close-btn" @click="modalClose">Ⅹ</button>
+                <h4 class="modal-tit">상세보기</h4>
+                <div class="modal-con">
+                    <div class="thumnail">
+                        <img :src="require('../assets/images/' + dataJs.products[dataJs.modalProdNum].imgUrl)" alt="">
+                    </div>
+                    <p class="con-tit">{{ dataJs.products[dataJs.modalProdNum].name }}</p>
+                    <p class="con-price">{{ dataJs.products[dataJs.modalProdNum].price }} 만원</p>
+                    <p>
+                        <input type="number" v-model.number="this.inputMonth">
+                        <span class="error-bx" v-if="this.isErrorBx">{{ this.errorMsg }}</span>
+                    </p>
+                    <p>{{ this.inputMonth }} 개월 선택함 : {{ this.inputMonth * dataJs.products[dataJs.modalProdNum].price }}
+                        만원</p>
                 </div>
-                <p class="con-tit">{{ dataJs.products[dataJs.modalProdNum].name }}</p>
-                <p class="con-price">{{ dataJs.products[dataJs.modalProdNum].price }} 만원</p>
-                <p>
-                    <input type="number" v-model.number="this.inputMonth">
-                    <span class="error-bx" v-if="this.isErrorBx">{{ this.errorMsg}}</span>
-                </p>
-                <p>{{this.inputMonth}} 개월 선택함 : {{ this.inputMonth * dataJs.products[dataJs.modalProdNum].price}} 만원</p>
             </div>
         </div>
-    </div>
+    </transition>
+
 </template>
 
 <script>
@@ -27,14 +31,14 @@ export default {
     },
     data() {
         return {
-            isErrorBx:false,
-            errorMsg:'',
+            isErrorBx: false,
+            errorMsg: '',
             inputMonth: 1,
         }
     },
-    watch : {
+    watch: {
         inputMonth(e) {
-            if(e >= 12){
+            if (e >= 12) {
                 this.isErrorBx = true;
                 this.inputMonth = 12;
                 this.errorMsg = '12이하로 입력하세요';
@@ -42,7 +46,7 @@ export default {
                 this.isErrorBx = false;
                 this.errorMsg = '';
             }
-      }
+        }
     },
     methods: {
         modalClose() {
@@ -88,14 +92,16 @@ export default {
             text-align: left;
 
             .thumnail {
-                margin-bottom:20px;
+                margin-bottom: 20px;
+
                 img {
                     width: 100%;
                 }
             }
+
             .con-tit {
-                font-weight:bold;
-                font-size:20px;
+                font-weight: bold;
+                font-size: 20px;
             }
         }
     }
@@ -109,5 +115,31 @@ export default {
         border: 0;
         cursor: pointer;
     }
+}
+
+.fade-enter-from {
+    opacity: 0;
+
+}
+
+.fade-enter-active {
+    transition: all 2s;
+}
+
+.fade-enter-to {
+    opacity: 1;
+}
+
+.fade-leave-from {
+    opacity: 1;
+
+}
+
+.fade-leave-active {
+    transition: all 2s;
+}
+
+.fade-leave-to {
+    opacity: 0;
 }
 </style>

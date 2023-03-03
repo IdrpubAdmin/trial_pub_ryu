@@ -6,11 +6,16 @@
             </li>
         </ul>
 
-        <BannerDisc/>
+        <BannerDisc v-if="isShowBannerDisc"/>
+
+        <br>
+        <button @click="pirceSort">가격순 정렬</button> &nbsp;
+        <button @click="pirceSortOrg">정렬 되돌리기</button>
 
         <PrdListT1 :data-js="this.dataJs" @modal-open="modalOpen"/>
 
         <ModalDetail :data-js="this.dataJs" @modal-close="modalClose"/>
+
     </div>
 
 </template>
@@ -25,13 +30,18 @@ export default {
     name: 'App',
     data() {
         return {
+            isShowBannerDisc: true,
             dataJs,
+            dataJsProdOrg: [...dataJs.products],
         };
     },
     components: {
         BannerDisc,
         PrdListT1,
         ModalDetail,
+    },
+    mounted() {
+        setTimeout(this.hideBanner, 2000)
     },
     methods: {
         modalOpen(val) {
@@ -40,7 +50,18 @@ export default {
         },
         modalClose(val) {
             this.dataJs.isModalOpen = val;
-        }
+        },
+        pirceSort() {
+            this.dataJs.products.sort(function(a,b){
+                return a.price - b.price
+            });
+        },
+        pirceSortOrg() {
+            this.dataJs.products = [...this.dataJsProdOrg];
+        },
+        hideBanner() {
+            this.isShowBannerDisc = false;
+        },
     }
 }
 
