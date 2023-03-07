@@ -1,16 +1,24 @@
 <template>
     <div>
+        <div>
+            {{ $store.state.msg }}
+        </div>
+
         <Post :post-db="postDb"></Post>
 
         <!-- 필터선택페이지 -->
         <div v-if="this.currentTabIdx == 1">
-        <div class="upload-image" :style="{backgroundImage:`url(${this.tempFileUrl})`}"></div>
+        <div class="upload-image" :class="this.applytFilter" :style="{backgroundImage:`url(${this.tempFileUrl})`}"></div>
         <div class="filters">
             <FilterBox
                 :temp-file-url="this.tempFileUrl"
                 :filters="this.filters[idx]"
                 v-for="(item, idx) in this.filters"
-                :key="idx"></FilterBox>
+                :key="idx">
+                <template v-slot:filterName>
+                    {{ this.filters[idx] }}
+                </template>
+            </FilterBox>
         </div>
         </div>
 
@@ -34,13 +42,20 @@ export default {
         postDb: Array,
         currentTabIdx: Number,
         tempFileUrl: String,
+
     },
     data() {
         return {
             filters: ["aden", "_1977", "brannan", "brooklyn", "clarendon", "earlybird", "gingham", "hudson",
                 "inkwell", "kelvin", "lark", "lofi", "maven", "mayfair", "moon", "nashville", "perpetua",
-                "reyes", "rise", "slumber", "stinson", "toaster", "valencia", "walden", "willow", "xpro2"]
+                "reyes", "rise", "slumber", "stinson", "toaster", "valencia", "walden", "willow", "xpro2"],
+            applytFilter: '',
         }
+    },
+    mounted() {
+        this.emitter.on('gApplyFilter', (filterName)=>{
+            this.applytFilter = filterName;
+        })
     },
     components: {
         Post,

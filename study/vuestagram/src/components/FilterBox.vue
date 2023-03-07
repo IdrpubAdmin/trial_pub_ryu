@@ -1,7 +1,10 @@
 <template>
     <div class="filter-item"
          :class="filters"
-         :style="{backgroundImage:`url(${this.tempFileUrl})`}"></div>
+         :style="{backgroundImage:`url(${this.tempFileUrl})`}"
+         @click="applyFilter(filters)">
+        <slot name="filterName" :data-from-slot=this.dataFromSlot></slot>
+    </div>
 </template>
 
 <script>
@@ -9,7 +12,17 @@ export default {
     name: 'FilterBx',
     props: {
         tempFileUrl: String,
-        filters: Array
+        filters: Array,
+    },
+    data() {
+        return {
+            dataFromSlot: 'this is data from Slot',
+        }
+    },
+    methods: {
+        applyFilter(filterName) {
+            this.emitter.emit('gApplyFilter',filterName)
+        }
     }
 }
 </script>

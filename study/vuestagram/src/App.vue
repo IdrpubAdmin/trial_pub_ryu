@@ -10,6 +10,20 @@
         <img src="./assets/logo.png" class="logo"/>
     </div>
 
+    <h5>{{ $store.state.name }} / {{ $store.state.age }}</h5>
+    <button @click="$store.commit('changeName')">이름변경</button> /
+    <button @click="$store.commit('increAge', 10)">나이증가</button>
+
+    <p>{{ $store.state.moreData }} </p>
+    <button @click="$store.dispatch('getMoreData')">더보기</button>
+
+    <p>{{ now() }}</p>
+    <p>{{ this.nowBx }}</p>
+    <button @click=" now()">현재시간</button>
+    <p>{{ this.now2 }}</p>
+
+    <p>{{ mstMoreData }}</p>
+
     <Container :post-db="this.postDb"
                :current-tab-idx="this.currentTabIdx"
                :temp-file-url="this.tempFileUrl"
@@ -38,6 +52,7 @@
 import Container from './components/Container.vue'
 import postDb from './postDb.js'
 import axios from 'axios'
+import {mapState} from 'vuex'
 
 export default {
     name: 'App',
@@ -50,9 +65,33 @@ export default {
             currentTabIdx: 0,
             tempFileUrl: '',
             writedText:'',
+            applytFilter: '',
+            nowBx: 0,
         }
     },
+    mounted() {
+        this.emitter.on('gApplyFilter', (filterName)=>{
+            this.applytFilter = filterName;
+        })
+    },
+    computed: {
+        strName() {
+            return this.$store.state.name
+        },
+        strAge() {
+            return this.$store.state.age
+        },
+        ...mapState(['name', 'age', 'moreData']),
+        ...mapState({mstName : 'name', mstAge : 'age', mstMoreData: 'moreData'}),
+        now2() {
+            return new Date()
+        },
+
+    },
     methods: {
+        now() {
+            this.nowBx = new Date()
+        },
         postMore() {
             axios.get('https://codingapple1.github.io/vue/more0.json')
                 .then((res)=>{
@@ -78,7 +117,7 @@ export default {
                 date: "May 15",
                 liked: false,
                 content: this.writedText,
-                filter: "perpetua"
+                filter: this.applytFilter
             };
             this.postDb.unshift(writedPost);
             this.currentTabIdx = 0;
