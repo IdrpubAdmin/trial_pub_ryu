@@ -62,7 +62,8 @@ export default {
     data(){
         return {
             postDb,
-            currentTabIdx: 0,
+            // currentTabIdx: 0,
+            currentTabIdx: 3,
             tempFileUrl: '',
             writedText:'',
             applytFilter: '',

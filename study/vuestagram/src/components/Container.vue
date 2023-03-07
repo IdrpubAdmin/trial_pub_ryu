@@ -29,20 +29,30 @@
                 <textarea @input="$emit('write', $event.target.value)" class="write-box">write!</textarea>
             </div>
         </div>
+
+        <div v-if="this.currentTabIdx == 3">
+            <MyPage :test-data="'test-data-text'"/>
+        </div>
+
     </div>
 </template>
 
 <script>
 import Post from './Post.vue'
+import MyPage from './MyPage.vue'
 import FilterBox from "@/components/FilterBox.vue";
 
 export default {
     name: 'PostBx',
+    components: {
+        Post,
+        FilterBox,
+        MyPage
+    },
     props: {
         postDb: Array,
         currentTabIdx: Number,
         tempFileUrl: String,
-
     },
     data() {
         return {
@@ -57,10 +67,6 @@ export default {
             this.applytFilter = filterName;
         })
     },
-    components: {
-        Post,
-        FilterBox
-    }
 }
 </script>
 
