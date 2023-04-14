@@ -7,3 +7,8 @@ node_modules
 .env
 dist
 .DS_Store
+
+# custom
+!.vscode/settings.json
+yarn.lock
+package-lock.json
