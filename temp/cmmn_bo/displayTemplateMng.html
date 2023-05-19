@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="layout/default">
+<head>
+    <title>IDR Admin</title>
+    <script type="text/javascript" th:inline="javascript">
+        /*<![CDATA[*/
+        var pageBox = IDRSandbox(["common", "restapi", "grid"], function(box) {
+            box.cacheCodes = {};
+
+            box.cellLink = function(cellValue, options, rowData){
+                var url = '<a href="javascript:pppCall(\'pppDisptmpTemplateDtl\',1000,800);">'+cellValue+'</a>';
+                return url;
+            };
+        });
+        function pppCall(fileName,w,h){
+            var url = contextRoot + "/ui/demo/pub/popup/"+fileName;
+            pageBox.openPopup(url,'',{width:w,height:h});
+        };
+        $(function() {
+            //sample-list
+            $("#templateListGrid .table").jqGrid({
+                datatype:'local',
+                data: [
+                    {
+                        tmpNum : "123133",
+                        tmpName : "코너명134",
+                        tmpCateName : "전시카테고리",
+                        device : "PC",
+                        useYn : "사용",
+                        editor : "elsjdhg132",
+                        editTime : "2020-01-13 00:11:32",
+                    },
+                ],
+                mtype: 'POST',
+                colModel: [
+                    { name: "tmpNum", label: '템플릿번호', align: 'center'},
+                    { name: "tmpName", label: '템플릿명', align: 'center', formatter:pageBox.cellLink},
+                    { name: "tmpCateName", label: '템플릿구분명', align: 'center'},
+                    { name: "device", label: '디바이스', align: 'center' },
+                    { name: "useYn", label: '사용여부', align: 'center' },
+                    { name: "editor", label: '최종수정자', width:150, align: 'center'},
+                    { name: "editTime", label: '최종수정일시', width:150, align: 'center' }
+                ],
+                multiselect : true,
+                multiselectWidth: 40,
+                autowidth:true,
+            });
+
+            //sample-list
+            $("#usingTemplateListGrid .table").jqGrid({
+                datatype:'local',
+                data: [
+                    {
+                        dispCateNum : "123133",
+                        dispCateName : "카테고리134313",
+                        dispSort : "1",
+                        dispYn : "전시",
+                        hiddenYn : "N",
+                        editor : "elsjdhg132",
+                        editTime : "2020-01-13 00:11:32",
+                    },
+                ],
+                mtype: 'POST',
+                colModel: [
+                    { name: "dispCateNum", label: '전시카테고리 번호', align: 'center', key:true },
+                    { name: "dispCateName", label: '전시카테고리명', align: 'center', frozen: true },
+                    { name: "dispSort", label: '전시순서', align: 'center' },
+                    { name: "dispYn", label: '전시여부', align: 'center' },
+                    { name: "hiddenYn", label: 'Hidden여부', align: 'center' },
+                    { name: "editor", label: '최종수정자', width:150, align: 'center',editable: true},
+                    { name: "editTime", label: '최종수정일시', width:150, align: 'center' }
+                ],
+                //multiselect : true,
+                //multiselectWidth: 40,
+                autowidth:true,
+            });
+        });
+        /*]]>*/
+    </script>
+</head>
+<body>
+
+<!-- content -->
+<div class="content disptemp-mng-wrap" layout:fragment="content">
+
+    <!-- 검색조건 -->
+    <form id="searchForm" name="searchForm" method="post" class="form-horizontal">
+
+        <!-- row -->
+        <div class="row">
+            <!-- col-md-12 -->
+            <div class="col-md-12">
+
+                <div class="row">
+                    <div class="search-table col-md-10 lt-box-pad">
+                        <table class="table">
+                            <tbody>
+                            <tr>
+                                <th>템플릿 구분</th>
+                                <td>
+                                    <select class="form-control">
+                                        <option value="" selected="selected">전체</option>
+                                        <option value="">전시카테고리</option>
+                                        <option value="">테마페이지</option>
+                                        <option value="">G-TREND</option>
+                                    </select>
+                                </td>
+                                <th>전시여부</th>
+                                <td>
+                                    <label class="radio-inline">
+                                        <input type="radio" name="rd-gt-dispyn" id="gt-dispyn-all" value="all"/> 전체
+                                    </label>
+                                    <label class="radio-inline">
+                                        <input type="radio" name="rd-gt-dispyn" id="gt-dispyn-y" value="y"/> Y
+                                    </label>
+                                    <label class="radio-inline">
+                                        <input type="radio" name="rd-gt-dispyn" id="gt-dispyn-n" value="n"/> N
+                                    </label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>템플릿명</th>
+                                <td>
+                                    <input type="text" class="form-control" />
+                                </td>
+                                <th>디바이스</th>
+                                <td>
+                                    <select class="form-control">
+                                        <option value="" selected="selected">전체</option>
+                                        <option value="">PC</option>
+                                        <option value="">모바일</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="col-md-2 search-table rt-box-pad">
+                        <table class="table">
+                            <tbody>
+                            <tr>
+                                <th>템플릿 번호</th>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <textarea name="" id="" class="form-control" cols="30" rows="2"></textarea>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- btn-wrap -->
+                <div class="btn-wrap btn-form-wrap">
+                    <button type="button" class="btn btn-blank2">초기화</button>
+                    <button type="button" class="btn btn-primary">조회</button>
+                </div>
+                <!-- //btn-wrap -->
+
+            </div>
+            <!-- //col-md-12 -->
+        </div>
+        <!-- //row -->
+
+    </form>
+    <!-- //검색조건 -->
+
+    <!-- 검색결과목록 -->
+    <form name="" id="form2" class="form-horizontal">
+
+        <!-- row -->
+        <div class="row">
+            <!-- col-md-12 -->
+            <div class="col-md-12">
+
+                <h3 class="subpage-title">
+                    <span class="pointBlt"></span>템플릿 목록
+                    <p class="list-cnt-txt">(총<em>90</em>건)</p>
+                </h3>
+
+                <!-- option-btnbox -->
+                <div class="option-btnbox">
+                    <div class="form-inline">
+                        <select name="jqgrid-cnt" title="리스트 개수" class="form-control">
+                            <option value="10">10</option>
+                            <option value="20">20</option>
+                            <option value="30">30</option>
+                            <option value="40">40</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                        </select>
+                    </div>
+                    <button type="button" class="btn btn-blank">삭제</button>
+                    <button type="button" class="btn btn-info" onclick="pppCall('pppDisptmpTemplateReg',1000,550);">템플릿 등록</button>
+                </div>
+                <!-- //option-btnbox -->
+
+                <!-- table-grid-wrap -->
+                <div id="templateListGrid" class="table-jqgrid-wrap table-responsive">
+                    <table class="table table-hover scroll-body">
+                        <thead>
+                        <tr>
+                            <th>선택</th>
+                            <th>템플릿번호</th>
+                            <th>템플릿명</th>
+                            <th>템플릿구분</th>
+                            <th>디바이스</th>
+                            <th>사용여부</th>
+                            <th>최종수정자</th>
+                            <th>최종수정일시</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td></td>
+                            <td>123133</td>
+                            <td><a href="#none" onclick="pppCall('pppDisptmpTemplateDtl',1000,800);">템플릿134313</a></td>
+                            <td>전시카테고리</td>
+                            <td>PC</td>
+                            <td>사용</td>
+                            <td>elsjdhg132</td>
+                            <td>2020-01-13 00:11:32</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- //table-grid-wrap -->
+
+            </div>
+            <!-- //col-md-12 -->
+        </div>
+        <!-- //row -->
+
+    </form>
+    <!-- //검색결과목록 -->
+
+    <!-- 검색결과선택목록 -->
+    <form name="" id="form3" class="form-horizontal">
+
+        <h3 class="subpage-title">
+            <span class="pointBlt"></span>템플릿을 사용중인 목록
+            <p class="list-cnt-txt">(총<em>90</em>건)</p>
+        </h3>
+
+        <!-- table-grid-wrap -->
+        <div id="usingTemplateListGird" class="table-jqgrid-wrap table-responsive">
+            <table class="table table-hover scroll-body">
+                <thead>
+                <tr>
+                    <th>전시카테고리 번호</th>
+                    <th>전시카테고리명</th>
+                    <th>전시순서</th>
+                    <th>전시여부</th>
+                    <th>HIDDEN여부</th>
+                    <th>최종수정자</th>
+                    <th>최종수정일시</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>123133</td>
+                    <td>카테고리134313</td>
+                    <td>1</td>
+                    <td>전시</td>
+                    <td>N</td>
+                    <td>elsjdhg132</td>
+                    <td>2020-01-13 00:11:32</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <!-- //table-grid-wrap -->
+
+    </form>
+    <!-- //검색결과목록 -->
+
+</div>
+<!-- //content -->
+
+</body>
+</html>
