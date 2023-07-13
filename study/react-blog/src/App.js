@@ -1,11 +1,22 @@
 import React, { useState } from 'react';
-import logo from './logo.svg';
 import './App.css';
 
 function App() {
 
-  let posts = '강남 고기 맛집';
-  let [글제목, 글제목변경] = useState('남자 코트 추천');
+  let [따봉, 따봉변경 ] = useState(0);
+  let [글제목] = useState( ['남자코트 추천', '강남 우동맛집', '파이썬 독학'] );
+
+  function PostList(props, propsFn) {
+    return (
+      <div className="list">
+        <h4>
+          { props.postData[2] }
+          <span >좋아요 </span> { props.postLike }
+        </h4>
+        <p>2월 17일 발행</p>
+      </div>
+    )
+  }
 
   return (
     <div className="App">
@@ -14,10 +25,7 @@ function App() {
         개발 Blog
       </div>
 
-      <div className="list">
-        <h4>{ 글제목 }</h4>
-        <p>2월 17일 발행</p>
-      </div>
+      <PostList postData={글제목} postLike={따봉}></PostList>
 
     </div>
   );
