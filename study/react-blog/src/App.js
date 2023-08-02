@@ -4,14 +4,14 @@ import './App.css';
 function App() {
 
   let [따봉, 따봉변경 ] = useState(0);
-  let [글제목] = useState( ['남자코트 추천', '강남 우동맛집', '파이썬 독학'] );
+  let [글제목, 글제목변경] = useState( ['남자코트 추천', '강남 우동맛집', '파이썬 독학'] );
 
   function PostList(props, propsFn) {
     return (
       <div className="list">
         <h4>
-          { props.postData[2] }
-          <span >좋아요 </span> { props.postLike }
+          { props.postData[0] }
+          <span onClick={ ()=>{ 따봉변경(따봉 + 1) } } > ❤️좋아요 </span> { props.postLike }
         </h4>
         <p>2월 17일 발행</p>
       </div>
@@ -20,6 +20,14 @@ function App() {
 
   return (
     <div className="App">
+      <button onClick={
+        ()=>{
+          let copy글제목 = [...글제목]
+          copy글제목[0]='해적선'
+          글제목변경(copy글제목)}
+        }>
+        글제목 변경
+      </button>
 
       <div className="black-nav" style={ {color:'yellow', fontSize: '30px'}}>
         개발 Blog
