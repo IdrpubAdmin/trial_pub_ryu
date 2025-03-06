@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>씨젠 운영업무 퍼블 지원</title>
+</head>
+<body>
+
+<!-- 임시 스타일 : 개발 작업시 제외 -->
+<style>
+    table {
+        border: 1px solid #999;
+        border-collapse: collapse;
+        margin: 0 auto;
+        width: 60%;
+    }
+
+    th, td {
+        border: 1px solid #999;
+        padding: 10px;
+    }
+
+    th {
+        min-width: 200px;
+    }
+</style>
+<!-- 임시 스타일 : 개발 작업시 제외 -->
+
+<!-- cn-item-list-wrap 관련 스타일 -->
+<style>
+    .cn-item-list-wrap {
+
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        justify-content: start;
+        margin: 0;
+        padding: 0;
+    }
+
+    .cn-item-list-wrap li {
+        list-style: none;
+    }
+
+    .cn-item {
+        align-items: center;
+        border: 1px solid #999;
+        border-radius: 5px;
+        display: flex;
+        flex-direction: row;
+        gap: 10px;
+        padding: 10px;
+        position: relative;
+    }
+
+    .cn-item-img {
+        aspect-ratio: 1 / 1;
+        border-bottom: 1px solid #999;
+        flex-shrink: 0;
+        overflow: hidden;
+        position: relative;
+        width: 80px;
+    }
+
+    .cn-item-img img {
+        height: 100%;
+        object-fit: cover;
+        width: 100%;
+    }
+
+    .cn-item-title {
+        -webkit-box-orient: vertical;
+        display: -webkit-box;
+        font-size: 14px;
+        font-weight: bold;
+        -webkit-line-clamp: 3;
+        margin: 0;
+
+        overflow: hidden;
+        text-align: left;
+        text-overflow: ellipsis;
+        width: 150px;
+        word-break: break-word;
+    }
+
+    .cn-item-detail-btn {
+        background: #fff;
+        border: 1px solid #bc1225;
+        border-radius: 18px;
+        color: #8b0f1d;
+        cursor: pointer;
+        flex-shrink: 0;
+        font-size: 14px;
+        font-weight: bold;
+        height: 36px;
+        line-height: 36px;
+        min-width: 137px;
+        padding: 0 10px;
+        text-align: center;
+    }
+</style>
+<!-- //cn-item-list-wrap 관련 스타일 -->
+
+<!-- 임시 테이블 -->
+<table>
+    <tbody>
+    <tr>
+        <th>컬럼명</th>
+        <td>컬럼 내용</td>
+    </tr>
+    <tr>
+        <th>컬럼명</th>
+        <td>
+            <!-- cn-item-list-wrap -->
+            <ul class="cn-item-list-wrap">
+                <!-- to Dev : 반복문 처리 -->
+                <li>
+                    <!-- cn-item -->
+                    <div class="cn-item">
+                        <div class="cn-item-img">
+                            <img alt="이미지" src="./image/item-img-1.jpg">
+                        </div>
+                        <p class="cn-item-title">Item Title Text</p>
+                        <button class="cn-item-detail-btn">자세히 보기</button>
+                    </div>
+                    <!-- //cn-item -->
+                </li>
+                <!-- //to Dev : 반복문 처리 -->
+
+                <li>
+                    <!-- cn-item -->
+                    <div class="cn-item">
+                        <div class="cn-item-img">
+                            <img alt="이미지" src="./image/item-img-2.jpg">
+                        </div>
+                        <p class="cn-item-title">Item Title Text Item Title TextItem Title Text</p>
+                        <button class="cn-item-detail-btn">자세히 보기</button>
+                    </div>
+                    <!-- //cn-item -->
+                </li>
+
+                <li>
+                    <!-- cn-item -->
+                    <div class="cn-item">
+                        <div class="cn-item-img">
+                            <img alt="이미지" src="./image/item-img-3.jpg">
+                        </div>
+                        <p class="cn-item-title">Item Title Text Item Title TextItem Title TextItem Title Text Item
+                            Title TextItem Title Text</p>
+                        <button class="cn-item-detail-btn">자세히 보기</button>
+                    </div>
+                    <!-- //cn-item -->
+                </li>
+
+                <li>
+                    <!-- cn-item -->
+                    <div class="cn-item">
+                        <div class="cn-item-img">
+                            <img alt="이미지" src="./image/item-img-1.jpg">
+                        </div>
+                        <p class="cn-item-title">Item Title Text</p>
+                        <button class="cn-item-detail-btn">자세히 보기</button>
+                    </div>
+                    <!-- //cn-item -->
+                </li>
+
+                <li>
+                    <!-- cn-item -->
+                    <div class="cn-item">
+                        <div class="cn-item-img">
+                            <img alt="이미지" src="./image/item-img-1.jpg">
+                        </div>
+                        <p class="cn-item-title">Item Title Text</p>
+                        <button class="cn-item-detail-btn">자세히 보기</button>
+                    </div>
+                    <!-- //cn-item -->
+                </li>
+            </ul>
+            <!-- //cn-item-list-wrap -->
+        </td>
+    </tr>
+    <tr>
+        <th>컬럼명</th>
+        <td>컬럼 내용</td>
+    </tr>
+    </tbody>
+
+</table>
+<!-- //임시 테이블 -->
+
+</body>
+</html>
